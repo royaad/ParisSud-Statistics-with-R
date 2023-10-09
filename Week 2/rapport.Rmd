@@ -1,0 +1,26 @@
+---
+title: "Example"
+output: html_document
+date: "2023-10-02"
+---
+Data Analysis of Mental Health in Prisons
+```{r, echo=FALSE}
+setwd("C:/Users/user/Desktop/R (Paris Sud)/Week 1/data")
+smp <- read.csv2("smp2.csv")
+```
+Data Description:
+```{r, eval=c(1,3)}
+names(smp)
+str(smp)
+summary(smp)
+```
+
+Distribution of the variable `n.enfants`.
+
+```{r,echo=FALSE}
+smp$n.enfant.cat <- factor(smp$n.enfant)
+levels(smp$n.enfant.cat)[6:13] <- "5+"
+barplot(prop.table(table(smp$n.enfant.cat)) * 100, ylim=c(0,30), las=1)
+
+```
+
