@@ -63,3 +63,13 @@ plot(cha, xlab = "", ylab = "", main = "Classification")
 # mix correlation graph with classification
 obj <- cor(smp[, var], use = "pairwise.complete.obs")
 heatmap(obj, col = gray(seq(1,0,length=16)))
+
+# Quiz
+## We want to compare the risk of relapse in alcoholic disease in two subgroups: the group of individuals over 50 years old (strictly over 50 years, recoded as "1") and the group of individuals under 50 years old (50 or younger, recoded as "0"). Provide the p-value associated with the corresponding statistical test (4 digits after the decimal point):
+alc$AGE.bin <- ifelse(alc$AGE>50,1,0)
+diff <- survdiff(Surv(t,SEVRE)~AGE.bin, data=alc)
+p <- pchisq(diff$chisq, length(diff$n)-1, lower.tail = FALSE)
+sprintf("%.4f",p)
+## We want to test the association between the risk of relapse in alcoholic disease and the variables SEX, AGE, and the interaction between the variables SEX and AGE. Provide the p-value associated with the interaction between the variables SEX and AGE in the corresponding test (2 decimal places):
+mod <- coxph(formula = Surv(t,SEVRE)~AGE*SEXE, data=alc)
+mod
